@@ -74,7 +74,7 @@
                 updateStats();
 
                 if (value === 'C') {
-                    expression = ''; // Vyčistit displej
+                    expression = '0'; // Vyčistit displej
                 } else if (value === 'CE') {
                     expression = '0'; // Vymazat aktuální výraz
                 } else if (value === '←') {
@@ -83,6 +83,28 @@
                     if (expression) {
                         expression = String(eval(expression) / 100); // Převod na procenta
                     }
+                } else if (value === 'x²') {
+            // Výpočet druhé mocniny
+            if (expression) {
+                expression = String(Math.pow(parseFloat(expression), 2)); // Mocnina čísla
+            }
+        } else if (value === '√x') {
+            // Výpočet druhé odmocniny
+            if (expression) {
+                const result = Math.sqrt(parseFloat(expression));
+                expression = result >= 0 ? String(result) : 'Error'; // Pokud výsledek není definovaný, zobrazí "Error"
+            }
+        } else if (value === ',') {
+            // Desetinná čárka
+            if (!expression.endsWith('.') && !/[.]\d*$/.test(expression)) {
+                expression += '.'; // Přidat tečku jako desetinný oddělovač
+            }
+        } else if (value === '1/x') {
+            // Výpočet převrácené hodnoty
+            if (expression) {
+                const result = 1 / parseFloat(expression);
+                expression = isFinite(result) ? String(result) : 'Error'; // Pokud je výsledek nekonečný (dělení nulou), zobrazí "Error"
+            }
                 } else if (value === '=') {
                     try {
                         expression = String(eval(expression)); // Vyhodnotit výraz
