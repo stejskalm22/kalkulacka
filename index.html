@@ -99,6 +99,12 @@
             if (!expression.endsWith('.') && !/[.]\d*$/.test(expression)) {
                 expression += '.'; // Přidat tečku jako desetinný oddělovač
             }
+        } else if (value === '+/-') {
+            // Změna znaménka
+            if (expression) {
+                // Pokud expression není prázdná, změní znaménko celého výrazu
+                expression = (parseFloat(expression) * -1).toString();
+            }
         } else if (value === '1/x') {
             // Výpočet převrácené hodnoty
             if (expression) {
